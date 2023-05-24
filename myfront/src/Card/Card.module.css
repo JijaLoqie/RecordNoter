@@ -1,6 +1,36 @@
 .Card {
-    margin: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px;
     background-color: aliceblue;
-    height: 150px;
-    width: 150px;
+    height: 40px;
+    width: 420px;
+}
+
+.Name {
+    flex-grow: 1;
+    padding-left: 10px;
+    color: blue;
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.Text {
+    
+    border-right: 1px solid black;
+    flex-grow: 40;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow:ellipsis;
+
+    justify-content: center;
+
+}
+
+.Date {
+    flex-grow: 1;
+    font-weight: 100;
+    padding-right: 5px;
 }

@@ -1,11 +1,11 @@
 .SmallButton {
-    background-color: rgb(210, 210, 210);
+    background-color: rgba(210, 210, 210, 0.979);
     width: 33px;
     height: 100%;
 }
 
 .Icon {
-    background-size: contain;
+    background-size: cover;
     float: left;
     width: 33px;
     height:93%;
