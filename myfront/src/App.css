@@ -1,0 +1,27 @@
+.App {
+  background-color: rgb(210, 210, 210);
+  margin: auto;
+  margin-top: 10vh;
+  margin-bottom: 10vh;
+  height: 600px;
+  width: 800px;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.Gray-block {
+  background-color: rgb(103, 103, 103);
+  height: 30px;
+  width: 800px;
+  flex-grow: 1;
+  display: flex;
+  justify-content: space-between;
+}
+
+.Records {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  flex-grow: 30;
+}

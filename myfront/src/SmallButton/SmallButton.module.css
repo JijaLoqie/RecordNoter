@@ -1,0 +1,25 @@
+.SmallButton {
+    background-color: rgb(210, 210, 210);
+    width: 33px;
+    height: 100%;
+}
+
+.Icon {
+    background-size: contain;
+    float: left;
+    width: 33px;
+    height:93%;
+}
+
+#Right {
+    background-image: url(../../public/right-arrow.png);
+}
+#Left {
+    background-image: url(../../public/left-arrow.png);
+}
+#Add {
+    background-image: url(../../public/add.png);
+}
+#Accounts {
+    background-image: url(../../public/account.png);
+}
