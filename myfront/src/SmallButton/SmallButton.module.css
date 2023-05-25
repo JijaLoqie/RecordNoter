@@ -1,7 +1,8 @@
 .SmallButton {
     background-color: rgba(210, 210, 210, 0.979);
     width: 33px;
-    height: 100%;
+    height: 33px;
+    border: 1px solid black;
 }
 
 .Icon {

@@ -1,34 +1,106 @@
 var express = require('express');
-var axios = require('axios')
+var moment = require('moment');
+const pool = require('./database');
 var app = express();
 const port = 5000;
 
-const options = {
-  method: 'GET',
-  url: 'https://weatherapi-com.p.rapidapi.com/current.json',
-  params: {q: 'Moscow'},
-  headers: {
-    'X-RapidAPI-Key': '82792bc789msh885dbbf5186af02p16cc5cjsn43847e93d3d4',
-    'X-RapidAPI-Host': 'weatherapi-com.p.rapidapi.com'
-  }
-};
+app.use(express.json({ limit: "500mb" }));
 
 app.get('/', function(req, res) {
   res.send("JijaLoqie begins to get cool!");
 });
-app.get('/getSomeWeather', async function(req, res) {
-  try {
-    const response = await axios.request(options);
-    var temperature = response.data.current.temp_c;
 
-    console.log("Passing temperature of Moscow:", temperature);
-    res.send({temperature});
+app.post('/addUser', (req, res)=>{
+  const username = req.body.username;
+  const password = req.body.password;
 
-  } catch (error) {
-    console.error(error);
-  }
+  console.log(`User ${username} created!`);
+  console.log(`${req}`);
+
+  const addUserQuery = `INSERT INTO users (username, password) VALUES ( '${username}', '${password}' )`;
+
+  pool.query(addUserQuery).then((response) => {
+    console.log("User saved!");
+    console.log(response);
+    res.send(response);
+  })
+  .catch((err) => {
+    console.log(err);
+    res.send(err);
+  });
 });
 
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
+app.post('/addRecord', (req, res)=>{
+  const username = req.body["username"];
+  const text = req.body["text"];
+  const date = moment().format('DD.MM.YYYY/hh:mm:ss');
+
+  console.log(`Record by ${username} created! text: ${text}`);
+
+  const addRecordQuery = `INSERT INTO records (username, text, date) VALUES ( '${username}', '${text}', '${date}' )`;
+
+  pool.query(addRecordQuery).then((response) => {
+    console.log("Record saved!");
+    console.log(response);
+    res.send(response);
+  })
+  .catch((err) => {
+    console.log(err);
+    res.send(err);
+  });
+});
+//  todo: edit record!!
+app.post('/editRecord', (req, res)=>{
+  const username = req.body["username"];
+  const text = req.body["text"];
+  const date = moment().format('DD.MM.YYYY/hh:mm:ss');
+
+  console.log(`Record by ${username} created! text: ${text}`);
+
+  const addRecordQuery = `INSERT INTO records (username, text, date) VALUES ( '${username}', '${text}', '${date}' )`;
+
+  pool.query(addRecordQuery).then((response) => {
+    console.log("Record saved!");
+    console.log(response);
+    res.send(response);
+  })
+  .catch((err) => {
+    console.log(err);
+    res.send(err);
+  });
+});
+
+//todo: deleteRecord!!
+app.post('/deleteRecord', (req, res)=>{
+  const id = req.body["id"];
+
+  console.log(`Record by ${username} created! text: ${text}`);
+
+  const addRecordQuery = `INSERT INTO records (username, text, date) VALUES ( '${username}', '${text}', '${date}' )`;
+
+  pool.query(addRecordQuery).then((response) => {
+    console.log("Record saved!");
+    console.log(response);
+    res.send(response);
+  })
+  .catch((err) => {
+    console.log(err);
+    res.send(err);
+  });
+});
+
+app.get("/getRecords", (req, response) => {
+  pool.query('SELECT * FROM records', (err, records) => {
+    console.log(records.rows);
+    response.send({records: records.rows});
+  });
 })
+// todo: getRecordById!!
+app.get("/getRecordById", (req, response) => {
+  pool.query(`SELECT ${req.body["index"]} FROM records`, (err, data) => {
+    console.log(data);
+    response.send({record: data.record});
+  });
+})
+
+app.listen(port, () => console.log(`Server on ${port}`));
