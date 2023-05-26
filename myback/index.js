@@ -30,6 +30,23 @@ app.post('/addUser', (req, res)=>{
   });
 });
 
+app.post("/userExists", (req, res) => {
+  const username = req.body.username;
+  const checkUserQuery = `SELECT * FROM users WHERE username`;
+
+  pool
+    .query(checkUserQuery)
+    .then((response) => {
+      console.log("User saved!");
+      console.log(response);
+      res.send(response);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.send(err);
+    });
+});
+
 app.post('/addRecord', (req, res)=>{
   const username = req.body["username"];
   const text = req.body["text"];
@@ -100,5 +117,10 @@ app.get("/getRecordById", (req, response) => {
     response.send({record: data.record});
   });
 })
+
+
+
+
+
 
 app.listen(port, () => console.log(`Server on ${port}`));

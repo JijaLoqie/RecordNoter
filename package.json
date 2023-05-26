@@ -1,0 +1,19 @@
+{
+  "dependencies": {
+    "gh-pages": "^5.0.0",
+    "react-scripts": "^5.0.1"
+  },
+  "name": "RecordNoter",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/JijaLoqie/RecordNoter.git",
+  "author": "JijaLoqie <dmitry.getrandompost@gmail.com>",
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "deploy": "gh-pages -d build",
+    "eject": "react-scripts eject"
+  },
+  "license": "MIT"
+}
