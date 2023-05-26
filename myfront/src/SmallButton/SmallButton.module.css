@@ -3,6 +3,11 @@
     width: 33px;
     height: 33px;
     border: 1px solid black;
+	cursor: pointer;
+}
+.SmallButton:hover {
+  background-color: #4CAF50; /* Green */
+  color: white;
 }
 
 .Icon {

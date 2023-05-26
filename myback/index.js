@@ -35,7 +35,7 @@ app.post('/addRecord', (req, res)=>{
   const text = req.body["text"];
   const date = moment().format('DD.MM.YYYY/hh:mm:ss');
 
-  console.log(`Record by ${username} created! text: ${text}`);
+  console.log(`Record by ${username} created!`);
 
   const addRecordQuery = `INSERT INTO records (username, text, date) VALUES ( '${username}', '${text}', '${date}' )`;
 
@@ -51,32 +51,31 @@ app.post('/addRecord', (req, res)=>{
 });
 //  todo: edit record!!
 app.post('/editRecord', (req, res)=>{
-  const username = req.body["username"];
+  const id = req.body["id"];
   const text = req.body["text"];
-  const date = moment().format('DD.MM.YYYY/hh:mm:ss');
+  console.log(id, text);
 
-  console.log(`Record by ${username} created! text: ${text}`);
+  const editRecordQuery = `UPDATE records SET text = '${text}' WHERE user_id = ${id}`;
 
-  const addRecordQuery = `INSERT INTO records (username, text, date) VALUES ( '${username}', '${text}', '${date}' )`;
-
-  pool.query(addRecordQuery).then((response) => {
-    console.log("Record saved!");
-    console.log(response);
-    res.send(response);
-  })
-  .catch((err) => {
-    console.log(err);
-    res.send(err);
-  });
+  pool
+    .query(editRecordQuery)
+    .then((response) => {
+      console.log("Record edited and saved!");
+      console.log(response);
+      res.send(response);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.send(err);
+    });
 });
 
 //todo: deleteRecord!!
 app.post('/deleteRecord', (req, res)=>{
   const id = req.body["id"];
 
-  console.log(`Record by ${username} created! text: ${text}`);
 
-  const addRecordQuery = `INSERT INTO records (username, text, date) VALUES ( '${username}', '${text}', '${date}' )`;
+  const addRecordQuery = `DELETE FROM records WHERE user_id = ${id}`;
 
   pool.query(addRecordQuery).then((response) => {
     console.log("Record saved!");
@@ -91,7 +90,6 @@ app.post('/deleteRecord', (req, res)=>{
 
 app.get("/getRecords", (req, response) => {
   pool.query('SELECT * FROM records', (err, records) => {
-    console.log(records.rows);
     response.send({records: records.rows});
   });
 })
