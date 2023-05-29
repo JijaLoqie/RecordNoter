@@ -5,6 +5,7 @@ import Card from "./Card/Card";
 import SmallButton from "./SmallButton/SmallButton";
 import FullRecord from "./FullRecord/FullRecord";
 import Parser from "html-react-parser";
+import AccountMenu from './AccountMenu/AccountMenu';
 
 function App() {
   const [records, setRecords] = useState([]);
@@ -64,6 +65,9 @@ function App() {
     setTargetRecord(target_id);
     setView("reader");
   };
+  const openAccounts = () => {
+	setView("accounts");
+  };
   const slideUp = () => {
     if (slide * 20 < records.length) {
       setSlide(slide + 1);
@@ -93,7 +97,7 @@ function App() {
         <>
           {" "}
           <div className="Gray-block">
-            <SmallButton icon="Accounts" />
+            <SmallButton icon="Accounts" handler={() => openAccounts()} />
             <SmallButton icon="Add" handler={() => openEditor(-1)} />
           </div>
           <div className="Records">
@@ -123,7 +127,7 @@ function App() {
           <div className="Gray-block">
             <SmallButton icon="Left" handler={slideDown} />
             <SmallButton
-              text={slide + ` / ${Math.ceil(records.length / 20)}`}
+              text={slide + ` / ${Math.max(1, Math.ceil(records.length / 20))}`}
             />
             <SmallButton icon="Right" handler={slideUp} />
           </div>
@@ -152,9 +156,16 @@ function App() {
             id={targetRecord}
           />
         </>
+      ) : view == "accounts" ? (
+        <>
+          <AccountMenu></AccountMenu>
+        </>
       ) : (
         <div></div>
       )}
+      <a className="link" href="https://jijaloqie.github.io/">
+        Made by JijaLoqie
+      </a>
     </div>
   );
 }

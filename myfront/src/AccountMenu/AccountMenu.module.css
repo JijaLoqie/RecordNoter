@@ -1,0 +1,71 @@
+.main {
+	display: flex;
+	height: 100%;
+	align-items: stretch;
+}
+.infoPage {
+	background-image: url("../../public/bg11.png");
+	width: 50%;
+	font-weight: bold;
+	color: #3C3C3C;
+	font-size: 24px;
+	text-align: left;
+	padding: 27px 28px;
+}
+.infoPage p {
+	color: white;
+}
+.loginPage {
+	background-color: white;
+	width: 50%;
+	height: 100%;
+}
+
+.loginForm {
+	justify-self: center;
+	padding: 20px;
+	color: #2e3640;
+	font-size: xx-large;
+}
+
+.formGroup {
+	margin-bottom: 10px;
+	border: 2px solid #D2D3D4;
+	border-left-color: transparent;
+	border-top-color: transparent;
+    border-right-color: transparent;
+    border-width: 0 0 2px;
+}
+
+.formGroup label {
+  display: block;
+  font-weight: bold;
+}
+
+.formGroup input {
+	font-size: large;
+
+  width: 100%;
+  padding: 5px;
+  border: none;
+  user-select: text;
+    outline: none;
+}
+
+.formButtons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.formButtons button {
+  width: 45%;
+  padding: 10px;
+  border: none;
+  background-color: #0078d4;
+  color: white;
+  cursor: pointer;
+}
+
+.formButtons button:hover {
+  background-color: #005a9e;
+}

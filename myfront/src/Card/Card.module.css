@@ -17,13 +17,14 @@
 }
 
 .Text {
-    
+	height: 40px;
+	width: 200px;    
     border-right: 1px solid black;
     flex-grow: 40;
 
-    white-space: nowrap;
     overflow: hidden;
-    text-overflow:ellipsis;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 
     justify-content: center;
 
