@@ -1,0 +1,15 @@
+{
+    "name": "RecordNoter",
+    "version": "1.0.0",
+    "manifest_version": 2,
+    "description": "This is my first project deployed",
+    "browser_action": {
+      "default_title": "Super Record Noter"
+    },
+    "start_url": ".",
+    "homepage": "https://jijaloqie.github.io/RecordNoter",
+    "permissions": [
+      "activeTab"
+    ]
+  }
+  
