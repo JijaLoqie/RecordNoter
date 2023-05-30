@@ -2,7 +2,7 @@
   "name": "myfront",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost:5000/",
+  "proxy": "http://81.90.181.209:5000/",
   "homepage": "https://jijaloqie.github.io/RecordNoter",
   "dependencies": {
     "@testing-library/jest-dom": "^5.14.1",

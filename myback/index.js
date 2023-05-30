@@ -2,7 +2,7 @@ var express = require('express');
 var moment = require('moment');
 const pool = require('./database');
 var app = express();
-const port = 8228;
+const port = 5000;
 
 app.use(express.json({ limit: "500mb" }));
 
