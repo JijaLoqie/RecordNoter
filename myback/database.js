@@ -2,10 +2,10 @@ const {Pool} = require("pg");
 
 
 const pool = new Pool({
-    user: "s244867",
-    password: "tR9t64A1da",
-    host: "ruvip54.hostiman.ru",
-    port: 8228
+    user: "postgres",
+    password: "password",
+    host: "localhost",
+    port: 5432
 });
 pool.query('DROP DATABASE IF EXISTS recordnoter_system');
 pool.query("CREATE DATABASE recordnoter_system").then((response) => {
