@@ -35,7 +35,7 @@ app.post("/userExists", (req, response) => {
   pool.query(
     `SELECT * FROM users`,
     (err, users) => {
-      response.send({ exists: users?.rows?.filter((user => {return new String(user.username).valueOf() == new String(username).valueOf()})).length > 0 });
+      response.send({ exists: users.rows.filter((user => {return new String(user.username).valueOf() == new String(username).valueOf()})).length > 0 });
     }
   );
 });
@@ -45,7 +45,7 @@ app.post("/isOwner", (req, response) => {
   pool.query(
     `SELECT * FROM records`,
     (err, users) => {
-      response.send({ isOwner: users?.rows?.filter((record => {return record.user_id === id && record.username === login})).length > 0 });
+      response.send({ isOwner: users.rows.filter((record => {return record.user_id === id && record.username === login})).length > 0 });
     }
   );
 });
@@ -56,11 +56,11 @@ app.post("/checkUserPassword", (req, res) => {
   const checkUserQuery = `SELECT * FROM users`;
 
  pool.query(checkUserQuery, (err, users) => {
-  console.log(users?.rows?.filter((user) => user.username === username)[0].password, password, users.rows.filter((user) => user.username === username)[0].password ===
+  console.log(users.rows.filter((user) => user.username === username)[0].password, password, users.rows.filter((user) => user.username === username)[0].password ===
   password)
    res.send({
      correct:
-       users?.rows?.filter((user) => user.username === username)[0]?.password ===
+       users.rows.filter((user) => user.username === username)[0].password ===
        password,
    });
  });

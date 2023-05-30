@@ -12,7 +12,7 @@ function App() {
   const [login, setLogin] = useState("");
   const [targetRecord, setTargetRecord] = useState("");
   const [slide, setSlide] = useState(1);
-  const [view, setView] = useState("cards");
+  const [view, setView] = useState("accounts");
 
   useEffect(() => {
     axios.get("/getRecords").then(
