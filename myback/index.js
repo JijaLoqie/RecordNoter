@@ -30,22 +30,30 @@ app.post('/addUser', (req, res)=>{
   });
 });
 
-app.post("/userExists", (req, res) => {
+app.get("/userExists", (req, response) => {
   const username = req.body.username;
-  const checkUserQuery = `SELECT * FROM users WHERE username`;
-
-  pool
-    .query(checkUserQuery)
-    .then((response) => {
-      console.log("User saved!");
-      console.log(response);
-      res.send(response);
-    })
-    .catch((err) => {
-      console.log(err);
-      res.send(err);
-    });
+  pool.query(
+    `SELECT * FROM users`,
+    (err, users) => {
+      response.send({ records: users.rows.filter((user => user.username == username)).length > 0 });
+    }
+  );
 });
+
+app.get("/checkUserPassword", (req, res) => {
+  const username = req.body.username;
+  const password = req.body.password;
+  const checkUserQuery = `SELECT * FROM users`;
+
+ pool.query(checkUserQuery, (err, users) => {
+   res.send({
+     correct:
+       users.rows.filter((user) => user.username == username)[0].password ==
+       password,
+   });
+ });
+});
+
 
 app.post('/addRecord', (req, res)=>{
   const username = req.body["username"];

@@ -5,10 +5,11 @@ import Card from "./Card/Card";
 import SmallButton from "./SmallButton/SmallButton";
 import FullRecord from "./FullRecord/FullRecord";
 import Parser from "html-react-parser";
-import AccountMenu from './AccountMenu/AccountMenu';
+import AccountMenu from "./AccountMenu/AccountMenu";
 
 function App() {
   const [records, setRecords] = useState([]);
+  const [login, setLogin] = useState("");
   const [targetRecord, setTargetRecord] = useState("");
   const [slide, setSlide] = useState(1);
   const [view, setView] = useState("cards");
@@ -23,13 +24,13 @@ function App() {
   });
 
   const getTextById = (id) => {
-	for (let i = 0; i < records.length; i++) {
-		if (id == records[i].user_id) {
-			return records[i].text;
-		}
-	}
-	return "";
-  }
+    for (let i = 0; i < records.length; i++) {
+      if (id == records[i].user_id) {
+        return records[i].text;
+      }
+    }
+    return "";
+  };
   const addNewRecord = (newName, newText) => {
     axios.post("/addRecord", {
       username: newName,
@@ -66,7 +67,7 @@ function App() {
     setView("reader");
   };
   const openAccounts = () => {
-	setView("accounts");
+    setView("accounts");
   };
   const slideUp = () => {
     if (slide * 20 < records.length) {
@@ -88,6 +89,10 @@ function App() {
       }
     }
     setView("cards");
+  };
+  const enterSystem = (newLogin) => {
+    setLogin(newLogin);
+	setView("cards");
   };
 
   return (
@@ -158,7 +163,7 @@ function App() {
         </>
       ) : view == "accounts" ? (
         <>
-          <AccountMenu></AccountMenu>
+          <AccountMenu handleEnterSystem={enterSystem} />
         </>
       ) : (
         <div></div>
