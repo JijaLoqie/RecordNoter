@@ -2,7 +2,7 @@ var express = require('express');
 var moment = require('moment');
 const pool = require('./database');
 var app = express();
-const port = 5000;
+const port = 8228;
 
 app.use(express.json({ limit: "500mb" }));
 
@@ -142,5 +142,6 @@ app.get("/getRecordById", (req, response) => {
 
 
 
-
+console.log("HELLLO");
+app.send("WIOWOWOWO");
 app.listen(port, () => console.log(`Server on ${port}`));
