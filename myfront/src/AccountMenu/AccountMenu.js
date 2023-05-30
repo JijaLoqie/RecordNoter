@@ -6,21 +6,31 @@ function AccountMenu({ handleEnterSystem }) {
   const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
 
-  const isExists = (log) => {
-    axios.get("/userExists", { username: log }).then((response) => {
-      return response.data.exists;
+  const isExists = async (log) => {
+    var exist;
+    await axios.post("/userExists", { username: log }).then((response) => {
+      console.log("userExist", response.data.exists)
+      if (response.data.exists) {
+        console.log("it does true!");
+      } else {
+        console.log("it does false!");
+      }
+      exist = response.data.exists;
     });
+    return exist;
   };
 
-  const isCorrectPassword = (log, pass) => {
-    axios
-      .get("/checkUserPassword", { username: log, password: pass })
+  const isCorrectPassword = async (log, pass) => {
+    var correct;
+    await axios
+      .post("/checkUserPassword", { username: log, password: pass })
       .then((response) => {
-        return response.data.correct;
+        correct = response.data.correct;
       });
+      return correct;
   };
-  const addUser = () => {
-    axios
+  const addUser = async () => {
+    await axios
       .post("/addUser", { username: login, password: password })
       .then((response) => {
         console.log(response);
@@ -28,12 +38,14 @@ function AccountMenu({ handleEnterSystem }) {
   };
 
   // Функция для обработки нажатия на кнопку "войти"
-  function handleLogin() {
-    if (!isExists(login)) {
+  async function handleLogin() {
+    const checkExist = await isExists(login);
+    if (!checkExist) {
       alert("Такого пользователя нет!");
       return;
     }
-    if (!isCorrectPassword(login, password)) {
+    const checkCorrect = await isCorrectPassword(login, password);
+    if (!checkCorrect) {
       alert("Неверный пароль!");
       return;
     }
@@ -43,7 +55,7 @@ function AccountMenu({ handleEnterSystem }) {
   }
 
   // Функция для обработки нажатия на кнопку "зарегистрироваться"
-  function handleRegister() {
+  async function handleRegister() {
     var loginRegex = /^[A-Za-z0-9_-]{3,16}/; // Логин должен содержать от 3 до 16 символов из латинских букв, цифр, подчеркивания или дефиса
     var passwordRegex = /^[A-Za-z0-9_-]{3,16}/; // Пароль должен содержать не менее 6 символов из цифр, спец. символов, латинских букв в верхнем и нижнем регистрах
 
@@ -58,7 +70,7 @@ function AccountMenu({ handleEnterSystem }) {
 			Пароль должен содержать не менее 6 символов из цифр, спец. символов, латинских букв в верхнем и нижнем регистрах`);
       return;
     }
-    if (isExists(login)) {
+    if (await isExists(login)) {
       alert("Пользователь с таким логином уже существует!");
       return;
     }

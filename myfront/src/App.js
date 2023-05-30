@@ -37,14 +37,20 @@ function App() {
       text: newText,
     });
   };
-  const editRecord = (id, newText) => {
+  const editRecord = async (id, newText) => {
     axios.post("/editRecord", {
       id: id,
       text: newText,
     });
   };
 
-  const removeRecord = (target) => {
+  const removeRecord = async (target) => {
+    const checkOwner = await isOwner(target, login);
+    console.log(target, login)
+    if (!checkOwner) {
+      alert("Нет доступа: вы не владелец записи!");
+      return;
+    }
     axios
       .post("/deleteRecord", {
         id: target,
@@ -54,8 +60,22 @@ function App() {
       });
   };
 
-  const openEditor = (target_id) => {
+  const isOwner = async (card_id, username) => {
+    var checkForOwner;
+    await axios.post("/isOwner", { id: card_id, login: username }).then((response) => {
+      checkForOwner = response.data.isOwner;
+    });
+    return checkForOwner;
+  };
+
+  const openEditor = async (target_id) => {
     if (target_id !== -1) {
+      const checkOwner = await isOwner(target_id, login);
+      console.log(target_id, login)
+      if (!checkOwner) {
+        alert("Нет доступа: вы не владелец записи!")
+        return;
+      }
       setTargetRecord(target_id);
       setView("editor");
     } else {
@@ -83,7 +103,7 @@ function App() {
     if (newText != undefined) {
       console.log("SAVED", newText, "id =", id);
       if (isNew) {
-        addNewRecord("JijaLoqie", newText);
+        addNewRecord(login, newText);
       } else {
         editRecord(id, newText);
       }
@@ -92,7 +112,7 @@ function App() {
   };
   const enterSystem = (newLogin) => {
     setLogin(newLogin);
-	setView("cards");
+    setView("cards");
   };
 
   return (
